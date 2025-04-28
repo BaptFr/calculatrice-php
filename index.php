@@ -28,28 +28,28 @@
                  
                 </div>
                 <div class="w-full flex flex-row justify-between p-2 flew-wrap">
-                    <div class=" container-chiffres w-75 flex flex-col border-gray-700 gap-2"> 
-                        <ul class= " flex flex-row justify-between">
+                    <div class=" container-chiffres flex flex-col border-gray-700 gap-2"> 
+                        <ul class= " flex flex-row justify-between gap-2">
                             <button class="bouton-classique">7</button> 
                             <button class="bouton-classique">8</button> 
                             <button class="bouton-classique">9</button> 
                         </ul>
-                        <ul class= " flex flex-row justify-between">
+                        <ul class= " flex flex-row justify-between gap-2">
                             <button class="bouton-classique">4</button>
                             <button class="bouton-classique">5</button> 
                             <button class="bouton-classique">6</button> 
                         </ul>
                     
-                        <ul class= " flex flex-row justify-between">
+                        <ul class= " flex flex-row justify-between gap-2">
                             <button class="bouton-classique">1</button> 
                             <button class="bouton-classique">2</button> 
                             <button class="bouton-classique">3</button> 
                         </ul>
                         
-                        <ul class=" flex flex-row justify-between">
-                            <button class="bouton-classique">0</button>
-                            <button class="bouton-classique ">CE</button>
-                            <button class="bouton-classique ">C</button>
+                        <ul class=" flex flex-row justify-between gap-2">
+                            <button class="bouton-classique">,</button>
+                            <button class="bouton-classique ">0</button>
+                            <button class="bouton-classique ">e</button>
                         </ul>
                     </div>
                     <div class="container-signes flex flex-col gap-4"> 
@@ -60,6 +60,10 @@
                         <ul  class=" flex flex-row gap-2">
                             <button class=" bouton-grand">*</button>
                             <button class="bouton-grand">/</button> 
+                        </ul>
+                        <ul  class=" flex flex-row gap-2">
+                            <button class=" bouton-grand">CE</button>
+                            <button class="bouton-grand">C</button> 
                         </ul>
                         <button class=" bouton-grand-double ">=</button>
                     </div>
