@@ -1,14 +1,22 @@
 /*** VARIABLES ***/
 :root {
-    --box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
-    --grey1:  #d8d7d79a;
+    --box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.9);
+    --primary: #779e8b;
+    --secondary: #539772;
+    --grey1:  #dbdbdb9a;
     --border-s: 1px solid black;
     --border-m: 2px solid black;
-    --border-l: 3px solid black;
+    --border-l: 3.5px solid black;
+    --border-xl: 4.5px solid black;
 
 }
+
+
+/** GENERAL**/
 main {
-    border : var(--border-l);
+    border : var(--border-xl);
+    background-color: var(--primary);
+    box-shadow: var(--box-shadow);
 }
 h1 {
     font-size: 3em;
@@ -19,9 +27,10 @@ h1 {
     border: 2px solid red
 }
 
+/** CONTAINERS ET ENSEMBLES**/
 .container-ecran{
     width: 95%;
-    height: 30vh;
+    height: 25vh;
     margin: 1em;
     padding: 5px 20px;
     display: flex;
@@ -33,6 +42,9 @@ h1 {
     text-align: center;
 }
 
+
+
+/** THEMES **/
 .bouton-classique {
     width: 4em;
     height: 3em;

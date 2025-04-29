@@ -1,13 +1,18 @@
 <?php
-$result = "";
+$total = "0";
+$calcul = "";
 $calcul = $_GET['calcul'];
 
-if (str_contains($calcul, '+')) {
+
+#erreur à vide
+if ($calcul == null) {
+    $total = "0";
+} else if (str_contains($calcul, '+')) {
     $tblCalcul = explode("+", $calcul);
-    $result =  $tblCalcul[0] + $tblCalcul[1];
+    $total =  $tblCalcul[0] + $tblCalcul[1];
 } else {
-    $result = "erreur";
-}
+    $total = "erreur";
+};
 ?>
 
 <!DOCTYPE html>
@@ -21,32 +26,33 @@ if (str_contains($calcul, '+')) {
     <link rel="stylesheet" type="text/css" href="./style.css" />
 </head>
 
-<body class="px-100">
+<body class=" w-full px-100">
     <header>
-        <nav class="flex flex-row items-center justify-center">
-            <div class="p-5 container-fluid">
+        <nav class="flex flex-row ">
+            <div class="p-5 ">
                 <h1> CALCULATRICE </h1>
             </div>
         </nav>
     </header>
-    <main class=" px-8 py-3 w-full flex flex-col justify-center items-center rounded-lg shadow-lg">
+    <main class=" px-8 py-3 w-full max-w-[850px] flex flex-col justify-center items-center rounded-lg ">
         <form action="" method="get" class="w-full">
             <div class="flex flex-col">
+                <!-- ECRAN -->
                 <div class="container-ecran">
                     <div class=" ml-5 font-extrabold text-5xl flex items-start">
                         <input id="calcul" name="calcul" type="text" value="">
                     </div>
                     <div class="font-extrabold text-[8em] flex flex-col justify-between items-end">
                         <?php
-                        if ($result !== "") {
-                            echo " $result";
+                        if ($total !== "") {
+                            echo " $total";
                         } else {
                             echo "";
                         }
                         ?>
                     </div>
-
                 </div>
+                <!-- CLAVIER -->
                 <div class="w-full flex flex-row justify-between p-2 flew-wrap">
                     <div class=" container-chiffres flex flex-col border-gray-700 gap-2">
                         <ul class=" flex flex-row justify-between gap-2">
@@ -83,7 +89,7 @@ if (str_contains($calcul, '+')) {
                         </ul>
                         <ul class=" flex flex-row gap-2">
                             <li><button type="button" class="bouton-classique" onclick="sendKeyCE()">CE</button></li>
-                            <li><button type="button" class="bouton-classique" onclick="sendKeyc()">C</button></li>
+                            <li><button type="button" class="bouton-classique" onclick="sendKeyC()">C</button></li>
                         </ul>
                         <div>
                             <input type="submit" class="bouton-grand-double" value="="></input>
@@ -95,7 +101,6 @@ if (str_contains($calcul, '+')) {
     </main>
 </body>
 <footer>
-
 </footer>
 <script>
     function sendKey1() {
@@ -143,27 +148,27 @@ if (str_contains($calcul, '+')) {
     }
 
     function sendKeyCE() {
-        document.getElementById("calcul").value = ""
+        document.getElementById("calcul").value = "";
     }
 
     function sendKeyC() {
-        return alert("C")
+        document.getElementById("calcul").value = "C";
     }
 
     function sendKeyPlus() {
-        document.getElementById("calcul").value += "+"
+        document.getElementById("calcul").value += "+";
     }
 
     function sendKeyMoins() {
-        document.getElementById("calcul").value += "-"
+        document.getElementById("calcul").value += "-";
     }
 
     function sendKeyMult() {
-        document.getElementById("calcul").value += "*"
+        document.getElementById("calcul").value += "*";
     }
 
     function sendKeyDiv() {
-        document.getElementById("calcul").value += "/"
+        document.getElementById("calcul").value += "/";
     }
 </script>
 
