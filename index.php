@@ -1,62 +1,73 @@
 <!--   AIDE PHP
 isset
 count pour length
-
+concaténation avec .
+#Conditions à ajouter :
+#   -Opérations avec résultat précédent : Si première value vide reprendre $total
 -->
 
 <?php
-$calcul = ""; #Var du calcul tapé
-$total = "0"; #Var du total calcul affiché
+$calcul = 0; #Var du calcul tapé
+$total = 0; #Var du total calcul affiché
 
-if (isset($_GET['calcul'])) {
-    $calcul = $_GET['calcul'];
+#récup de ce qui est tapé
+if (isset($_GET["calcul"])) {
+    $calcul = $_GET["calcul"];
 }
 
 #erreur à vide correction => 0 . Et calcul ==""
 if ($calcul == null || $calcul == "") {
-    $calcul = "123";
-    $total = "0";
-} elseif (str_contains($calcul, '+')) {
-    $tblCalcul = explode("+", $calcul);
-    $somme = 0;
-    #index inutile
-    foreach ($tblCalcul as $val) {
-        $somme += $val;
-    }
-    $total +=  $somme;
-} elseif (str_contains($calcul, '*')) {
-    $tblCalcul = explode("*", $calcul);
-    $multip = 1;
-    foreach ($tblCalcul as $val) {
-        $multip *= $val;
-    }
-    $total +=  $multip;
-} elseif (str_contains($calcul, '-')) {
-    $tblCalcul = explode("-", $calcul);
-    $soustraction = $tblCalcul[0];
-    //Boucle index nécessaire
-    for ($i = 1; $i < count($tblCalcul); $i++) {
-        $soustraction -= $tblCalcul[$i];
-    }
-    $total = $soustraction;
-} elseif (str_contains($calcul, '/')) {
-    $tblCalcul = explode("/", $calcul);
-    $divis = $tblCalcul[0];
-    for ($i = 1; $i < count($tblCalcul); $i++) {
-        //condition div /0
-        if ($tblCalcul[$i] == 0) {
-            $divis = "Erreur / 0";
-        } else {
-            $divis /= $tblCalcul[$i];
-        }
-    }
-    $total = $divis;
+    $calcul = "";
 } else {
-    $total = "Erreur";
+    if ($calcul[0] == "-" || $calcul[0] == "+" ||  $calcul[0] == "*" ||  $calcul[0] == "/") {
+        #Condition si le total est récupérer pour d'autres calculs - Prendre première valeur
+        $calcul = $total . $calcul; //pas +
+        print("tot=" . $total);
+        print("  calc=" . "  var calcul:" . $calcul);
+    }
+
+    #Conditions pour chaque signe
+    if (str_contains($calcul, "+")) {
+        $tblCalcul = explode("+", $calcul);
+        $somme = 0;
+        #index inutile
+        foreach ($tblCalcul as $val) {
+            $somme += (float)$val;
+        }
+        $total +=  $somme;
+    } elseif (str_contains($calcul, "*")) {
+        $tblCalcul = explode("*", $calcul);
+        $multip = 1;
+        foreach ($tblCalcul as $val) {
+            $multip *= (float)$val;
+        }
+        $total +=  $multip;
+    } elseif (str_contains($calcul, "-")) {
+        $tblCalcul = explode("-", $calcul);
+        $soustraction = (float)$tblCalcul[0];
+        //Boucle index nécessaire
+        for ($i = 1; $i < count($tblCalcul); $i++) {
+            $soustraction -= (float)$tblCalcul[$i];
+        }
+        $total = $soustraction;
+    } elseif (str_contains($calcul, "/")) {
+        $tblCalcul = explode("/", $calcul);
+        $divis = (float)$tblCalcul[0];
+        for ($i = 1; $i < count($tblCalcul); $i++) {
+            //condition div /0
+            if ($tblCalcul[$i] == 0) {
+                $divis = "Erreur / 0";
+            } else {
+                $divis /= (float)$tblCalcul[$i];
+            }
+        }
+        $total = $divis;
+    } else {
+        $total = "Erreur";
+    }
 }
 
-#Conditions à ajouter :
-#   -Opérations avec résultat précédent : Si première value vide reprendre $total
+
 
 ?>
 
@@ -120,7 +131,7 @@ if ($calcul == null || $calcul == "") {
                         <ul class=" flex flex-row justify-between gap-2">
                             <li><button type="button" class="bouton-classique" onclick="sendKeyDec()">,</button></li>
                             <li><button type="button" class="bouton-classique" onclick="sendKey0()">0</button></li>
-                            <li><button type="button" class="bouton-classique" onclick="sendKeyE()">e</button></li>
+                            <li><button type="button" class="bouton-classique" onclick="sendKeyP()">^</button></li>
                         </ul>
                     </div>
                     <div class="container-signes flex flex-col gap-2">
