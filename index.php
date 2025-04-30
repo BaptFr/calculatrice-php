@@ -1,18 +1,63 @@
+<!--   AIDE PHP
+isset
+count pour length
+
+-->
+
 <?php
-$total = "0";
-$calcul = "";
-$calcul = $_GET['calcul'];
+$calcul = ""; #Var du calcul tapé
+$total = "0"; #Var du total calcul affiché
 
+if (isset($_GET['calcul'])) {
+    $calcul = $_GET['calcul'];
+}
 
-#erreur à vide
-if ($calcul == null) {
+#erreur à vide correction => 0 . Et calcul ==""
+if ($calcul == null || $calcul == "") {
+    $calcul = "123";
     $total = "0";
-} else if (str_contains($calcul, '+')) {
+} elseif (str_contains($calcul, '+')) {
     $tblCalcul = explode("+", $calcul);
-    $total =  $tblCalcul[0] + $tblCalcul[1];
+    $somme = 0;
+    #index inutile
+    foreach ($tblCalcul as $val) {
+        $somme += $val;
+    }
+    $total +=  $somme;
+} elseif (str_contains($calcul, '*')) {
+    $tblCalcul = explode("*", $calcul);
+    $multip = 1;
+    foreach ($tblCalcul as $val) {
+        $multip *= $val;
+    }
+    $total +=  $multip;
+} elseif (str_contains($calcul, '-')) {
+    $tblCalcul = explode("-", $calcul);
+    $soustraction = $tblCalcul[0];
+    //Boucle index nécessaire
+    for ($i = 1; $i < count($tblCalcul); $i++) {
+        $soustraction -= $tblCalcul[$i];
+    }
+    $total = $soustraction;
+} elseif (str_contains($calcul, '/')) {
+    $tblCalcul = explode("/", $calcul);
+    $divis = $tblCalcul[0];
+    for ($i = 1; $i < count($tblCalcul); $i++) {
+        //condition div /0
+        if ($tblCalcul[$i] == 0) {
+            $divis = "Erreur / 0";
+        } else {
+            $divis /= $tblCalcul[$i];
+        }
+    }
+    $total = $divis;
 } else {
-    $total = "erreur";
-};
+    $total = "Erreur";
+}
+
+#Conditions à ajouter :
+#   -Opérations avec résultat précédent : Si première value vide reprendre $total
+
 ?>
 
 <!DOCTYPE html>
@@ -42,12 +87,12 @@ if ($calcul == null) {
                     <div class=" ml-5 font-extrabold text-5xl flex items-start">
                         <input id="calcul" name="calcul" type="text" value="">
                     </div>
-                    <div class="font-extrabold text-[8em] flex flex-col justify-between items-end">
+                    <div class="affichage-total font-extrabold text-[8em] flex flex-col justify-between items-end">
                         <?php
                         if ($total !== "") {
                             echo " $total";
                         } else {
-                            echo "";
+                            echo "0";
                         }
                         ?>
                     </div>
@@ -92,7 +137,7 @@ if ($calcul == null) {
                             <li><button type="button" class="bouton-classique" onclick="sendKeyC()">C</button></li>
                         </ul>
                         <div>
-                            <input type="submit" class="bouton-grand-double" value="="></input>
+                            <input id="submit-bouton-egale" type="submit" class="bouton-grand-double" value="="></input>
                         </div>
                     </div>
                 </div>
@@ -152,7 +197,9 @@ if ($calcul == null) {
     }
 
     function sendKeyC() {
-        document.getElementById("calcul").value = "C";
+        document.getElementById("calcul").value = "";
+        document.querySelector(".affichage-total").innertText = ""; // reinit. affichage résultat à 0
+        document.querySelector('form').submit(); //Réinitialise affichage de total
     }
 
     function sendKeyPlus() {
