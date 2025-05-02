@@ -94,3 +94,42 @@ h1 {
     box-shadow: none;
     transform: scale(0.95)
  }
+
+ /** MEIDA QUERIES **/
+ @media screen and (max-width: 1560px) and (orientation: landscape) { 
+
+    .bouton-classique {
+        width: 2.5em;
+        height: 1.5em;
+        font-size: 1.9em;
+    }
+    .bouton-grand-double{
+        height: 1.5em;
+    }
+    .affichage-total {
+        font-size: 6em;
+    }
+    #calcul {
+        font-size: 0.8em;
+    }
+
+  }
+
+  @media screen and (max-width: 1299px) and (orientation: landscape) { 
+    .bouton-classique {
+        width: 2em;
+        height: 1.5em;
+        font-size: 1.6em;
+    }
+    .bouton-grand-double{
+        height: 1.5em;
+    }
+    .affichage-total {
+        font-size: 6em;
+    }
+    #calcul {
+        font-size: 0.8em;
+    }
+
+
+  }

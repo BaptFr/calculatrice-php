@@ -2,6 +2,7 @@
 isset
 count pour length
 concaténation avec .
+pow(x, y )  pour puissance ^ . 
 #Conditions à ajouter :
 #   -Opérations avec résultat précédent : Si première value vide reprendre $total
 -->
@@ -62,6 +63,11 @@ if ($calcul == null || $calcul == "") {
             }
         }
         $total = $divis;
+    } elseif (str_contains($calcul, "^")) {
+        $tblCalcul = explode("^", $calcul);
+        $nombre = (float)$tblCalcul[0];
+        $puissance = (float)$tblCalcul[1];
+        $total = pow($nombre, $puissance);
     } else {
         $total = "Erreur";
     }
@@ -206,7 +212,9 @@ if ($calcul == null || $calcul == "") {
     function sendKeyCE() {
         document.getElementById("calcul").value = "";
     }
-
+    function sendKeyP() {
+        document.getElementById("calcul").value += "^";
+    }
     function sendKeyC() {
         document.getElementById("calcul").value = "";
         document.querySelector(".affichage-total").innertText = ""; // reinit. affichage résultat à 0
